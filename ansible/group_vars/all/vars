@@ -1,0 +1,17 @@
+versions:
+  cert_manager: v1.14.5
+  argo_cd: stable
+
+components:
+  argo_cd: true
+  cert_manager: false
+  rancher: false
+
+features:
+  generate_ca: true
+
+cert_manager_crds_url: "https://github.com/jetstack/cert-manager/releases/download/{{ versions.cert_manager }}/cert-manager.crds.yaml"
+argo_cd_install_yaml_url: "https://raw.githubusercontent.com/argoproj/argo-cd/{{ versions.argo_cd }}/manifests/install.yaml"
+
+ansible_become_pass: "{{ vaulted_become_password }}"
+remote_certs_dir: "/home/{{ vaulted_ssh_user }}/.certs/"

@@ -1,0 +1,18 @@
+---
+- name: Install K3s
+  become: true
+  shell:
+    cmd: "curl -sfL https://get.k3s.io | sh -"
+
+- name: Create temporary K9s directory
+  ansible.builtin.file:
+    state: directory
+    path: "/home/aveiga/.kube"
+
+- name: Install K9s
+  become: true
+  ansible.builtin.copy:
+    src: "/etc/rancher/k3s/k3s.yaml"
+    dest: "/home/aveiga/.kube/config"
+    remote_src: true
+#

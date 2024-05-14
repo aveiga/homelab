@@ -1,0 +1,12 @@
+- name: Create ArgoCD namespace
+  kubernetes.core.k8s:
+    state: present
+    definition: "{{ lookup('file', '../files/argo-ns.yaml') | from_yaml }}"
+  when: components.argo_cd is true
+
+- name: Deploy ArgoCD
+  kubernetes.core.k8s:
+    state: present
+    src: "{{ argo_cd_install_yaml_url }}"
+    namespace: argocd
+  when: components.argo_cd is true
